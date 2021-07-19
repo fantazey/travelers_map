@@ -18,6 +18,7 @@
           :key="place.name"
           :lat-lng="[place.latitude, place.longitude]"
       >
+        <l-icon :icon-url="getIconUrlForPlaceType(place.place_type)" :icon-size="[30,30]"></l-icon>
         <l-tooltip>{{place.name}}</l-tooltip>
       </l-marker>
     </l-map>
@@ -26,14 +27,19 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { LMap, LTileLayer, LMarker, LTooltip } from '@vue-leaflet/vue-leaflet';
+import { LMap, LTileLayer, LMarker, LTooltip, LIcon } from '@vue-leaflet/vue-leaflet';
+
+const bothIcon = require('@/assets/both_icon.svg');
+const oksanaIcon = require('@/assets/oksana_icon.svg');
+
 export default {
   name: "TravelersMap",
   components: {
     LMap,
     LTileLayer,
     LMarker,
-    LTooltip
+    LTooltip,
+    LIcon
   },
   data() {
     return {
@@ -52,6 +58,13 @@ export default {
     },
     onUpdateZoom(zoom) {
       this.zoom = zoom;
+    },
+    getIconUrlForPlaceType(place_type) {
+      const map = {
+        'both': bothIcon,
+        'oksana': oksanaIcon
+      };
+      return map[place_type];
     }
   }
 }
