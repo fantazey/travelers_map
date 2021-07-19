@@ -4,6 +4,8 @@
         v-model="zoom"
         v-model:zoom="zoom"
         :center=center
+        :min-zoom="3"
+        :max-zoom="12"
         style="height:100vh"
         @update:center="onUpdateCenter"
         @update:zoom="onUpdateZoom"
